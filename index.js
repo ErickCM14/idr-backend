@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 3000;
-app.use(cors());
 
 //en git bash correr cuando estpy en entorno de desarrorllo, poner el comando "source ./config/env.sh"  y auomaticamente se exportan
 
@@ -11,6 +10,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 //configuración BDD
 const mongoose = require('mongoose');
