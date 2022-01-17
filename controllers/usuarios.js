@@ -23,6 +23,12 @@ async function crearUsuario(req, res, next) {
     password = body.password
 
   delete body.password
+  if (!body.telefono) {
+    body.telefono = "Sin teléfono"
+  }
+  if (!body.telefono2) {
+    body.telefono2 = "Sin teléfono"
+  }
   const usuario = new Usuario(body)
   usuario.crearPassword(password)
   // let enviar = await enviarEmail(body);
@@ -46,6 +52,7 @@ function obtenerUsuarios(req, res, next) {                              //Obteni
       return res.sendStatus(401)
     }
 
+    console.log(user.publicData())
     return res.json(user.publicData());
   }).catch(next);
 }
@@ -147,7 +154,7 @@ enviarEmail = (mensaje) => {
     `<p>Empresa: ${mensaje.empresa}</p>` +
     `<p>Email: ${mensaje.email}</p>` +
     `<p>Telèfono: ${mensaje.telefono}</p>`;
-    `<p>Telèfono 2: ${mensaje.telefono2}</p>`;
+  `<p>Telèfono 2: ${mensaje.telefono2}</p>`;
   // return new Promise(resolve => {
   //   sendMail(msj, info => {
   //     console.log("Ha sido enviado el correo");
