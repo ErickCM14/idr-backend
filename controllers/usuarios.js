@@ -57,6 +57,20 @@ function obtenerUsuarios(req, res, next) {                              //Obteni
   }).catch(next);
 }
 
+function modificarPassword(req, res, next) {
+  console.log(req.body)
+  Usuario.find({'email':req.body.email}).then(user => {
+    
+    if (!user.length) { return res.sendStatus(404); }
+    let nuevaInfo = req.body
+    user[0].crearPassword(nuevaInfo.password)
+
+    user[0].save().then(updatedUser => {                                   //Guardando usuario modificado en MongoDB.
+      res.status(201).json(updatedUser.publicData())
+    }).catch(next)
+  }).catch(next)
+}
+
 function iniciarSesion(req, res, next) {
   if (!req.body.email) {
     return res.status(422).json({ errors: { email: "no puede estar vacío" } });
@@ -278,6 +292,7 @@ enviarSMS = function (body, password) {
 module.exports = {
   crearUsuario,
   obtenerUsuarios,
+  modificarPassword,
   iniciarSesion,
   envioEmailRestriccion
 }

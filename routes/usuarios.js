@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {
 	crearUsuario,
 	obtenerUsuarios,
+	modificarPassword,
 	iniciarSesion,
 	envioEmailRestriccion
 } = require('../controllers/usuarios');
@@ -13,5 +14,6 @@ router.get('/:id', auth.requerido, obtenerUsuarios);
 router.post('/', crearUsuario);
 router.post('/entrar', iniciarSesion);
 router.post('/usuario-restringido', envioEmailRestriccion);
+router.put('/modificar', modificarPassword);
 
 module.exports = router;
