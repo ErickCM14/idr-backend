@@ -8,13 +8,13 @@ passport.use(new LocalStrategy({                            //Configurando eleme
   passwordField: 'password'
 }, function (email, password, next) {
   Usuario.findOne({ email: email })
-  .then(function (user) {
-    if (!user) {
-      return next(null, false,{ errors:  'Email no existe' });
-    }
-    if(!user.validarPassword(password)){
-        return next(null, false,{ errors: 'Contraseña equivocada'});
-    }
-    return next(null, user);
-  }).catch(next);
+    .then(function (user) {
+      if (!user) {
+        return next(null, false, { errors: 'Email no existe' });
+      }
+      if (!user.validarPassword(password)) {
+        return next(null, false, { errors: 'Contraseña equivocada' });
+      }
+      return next(null, user);
+    }).catch(next);
 }));
